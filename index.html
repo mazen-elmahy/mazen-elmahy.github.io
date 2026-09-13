@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:          #040410;
+            --bg-2:        #0a0a20;
+            --card:        #0d0d26;
+            --border:      rgba(139, 92, 246, 0.12);
+            --border-h:    rgba(139, 92, 246, 0.45);
+            --purple:      #8b5cf6;
+            --cyan:        #22d3ee;
+            --gradient:    linear-gradient(135deg, #8b5cf6, #22d3ee);
+            --text:        #e2e8f0;
+            --dim:         #94a3b8;
+            --muted:       #475569;
+            --green:       #10b981;
+            --mono:        'JetBrains Mono', monospace;
+            --sans:        'Space Grotesk', sans-serif;
+            --nav-h:       68px;
+            --r:           14px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+        /* ── Subtle grid background ── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(139,92,246,.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139,92,246,.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            background: rgba(4, 4, 16, 0.8);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+        .logo {
+            font-family: var(--mono);
+            font-size: .9rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: .06em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            font-family: var(--mono);
+            font-size: .75rem;
+            color: var(--dim);
+            letter-spacing: .06em;
+            transition: color .2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--cyan); }
+
+        /* hamburger */
+        .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .burger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 22px;
+            border-radius: 8px;
+            font-family: var(--mono);
+            font-size: .78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            border: none;
+            letter-spacing: .04em;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(139,92,246,.35);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-h);
+            color: var(--text);
+        }
+        .btn-outline:hover {
+            background: rgba(139,92,246,.1);
+            border-color: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        /* ── SECTION COMMON ── */
+        .section-wrap {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 100px 6%;
+        }
+        .label {
+            font-family: var(--mono);
+            font-size: .7rem;
+            color: var(--purple);
+            letter-spacing: .14em;
+            margin-bottom: .4rem;
+        }
+        .label::before { content: '// '; opacity: .55; }
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 3rem;
+        }
+        .section-title span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── HERO ── */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: var(--nav-h);
+            position: relative;
+        }
+        .hero-inner {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 6%;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            background: rgba(16, 185, 129, .08);
+            border: 1px solid rgba(16, 185, 129, .25);
+            border-radius: 100px;
+            padding: 6px 14px;
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: var(--green);
+            margin-bottom: 1.5rem;
+        }
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: .3; }
+        }
+        .hero-name {
+            font-size: clamp(2.4rem, 6vw, 4.2rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            margin-bottom: .85rem;
+        }
+        .hero-name span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-role {
+            font-family: var(--mono);
+            font-size: 1rem;
+            color: var(--dim);
+            margin-bottom: 1.4rem;
+        }
+        .hero-desc {
+            font-size: .97rem;
+            color: var(--muted);
+            max-width: 500px;
+            line-height: 1.85;
+            margin-bottom: 2.4rem;
+        }
+        .hero-cta { display: flex; gap: .85rem; flex-wrap: wrap; }
+
+        /* Photo */
+        .photo-ring {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--gradient);
+            flex-shrink: 0;
+            position: relative;
+        }
+        .photo-ring::before {
+            content: '';
+            position: absolute;
+            inset: -18px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139,92,246,.2), transparent 65%);
+        }
+        .photo-ring-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+        }
+        .photo-ring-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* ── PROJECTS ── */
+        .filter-row {
+            display: flex;
+            gap: .6rem;
+            margin-bottom: 2.4rem;
+            flex-wrap: wrap;
+        }
+        .f-btn {
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-family: var(--mono);
+            font-size: .72rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--dim);
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: .04em;
+        }
+        .f-btn:hover, .f-btn.on {
+            background: rgba(139,92,246,.12);
+            border-color: var(--purple);
+            color: var(--text);
+        }
+        .proj-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 1.25rem;
+        }
+        .proj-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all .28s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .proj-card:hover {
+            border-color: var(--border-h);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(139,92,246,.14);
+        }
+        .proj-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity .28s;
+        }
+        .proj-card:hover::before { opacity: 1; }
+        .proj-card.hidden { display: none; }
+        .proj-img {
+            width: 100%;
+            height: 196px;
+            object-fit: cover;
+            background: var(--bg-2);
+        }
+        .proj-img-ph {
+            width: 100%;
+            height: 196px;
+            background: var(--bg-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--muted);
+        }
+        .proj-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+        .proj-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .7rem; }
+        .tag {
+            padding: 3px 9px;
+            border-radius: 5px;
+            font-family: var(--mono);
+            font-size: .65rem;
+            background: rgba(34,211,238,.08);
+            color: var(--cyan);
+            border: 1px solid rgba(34,211,238,.18);
+        }
+        .proj-title {
+            font-size: .98rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: .45rem;
+        }
+        .proj-short {
+            font-size: .83rem;
+            color: var(--dim);
+            line-height: 1.6;
+            flex: 1;
+        }
+        .proj-foot {
+            padding: .7rem 1.2rem;
+            border-top: 1px solid var(--border);
+            font-family: var(--mono);
+            font-size: .68rem;
+            color: var(--purple);
+            display: flex;
+            justify-content: space-between;
+        }
+        .proj-foot small { color: var(--muted); }
+
+        /* ── MODAL ── */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 2, 12, .88);
+            backdrop-filter: blur(14px);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+        .overlay.open { opacity: 1; pointer-events: all; }
+        .modal-box {
+            background: var(--card);
+            border: 1px solid var(--border-h);
+            border-radius: var(--r);
+            max-width: 680px;
+            width: 100%;
+            max-height: 88vh;
+            overflow-y: auto;
+            transform: translateY(24px) scale(.97);
+            transition: transform .3s;
+            position: relative;
+        }
+        .overlay.open .modal-box { transform: none; }
+        .modal-img { width: 100%; height: 240px; object-fit: cover; background: var(--bg-2); display: none; }
+        .modal-img.show { display: block; }
+        .modal-body { padding: 1.75rem; }
+        .modal-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .9rem; }
+        .modal-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .modal-text {
+            font-size: .88rem;
+            color: var(--dim);
+            line-height: 1.85;
+            white-space: pre-line;
+        }
+        .modal-x {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            background: rgba(139,92,246,.12);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+            line-height: 1;
+        }
+        .modal-x:hover { background: rgba(139,92,246,.28); }
+
+        /* ── SKILLS ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 1.1rem;
+        }
+        .skill-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 1.4rem;
+            transition: border-color .2s;
+        }
+        .skill-card:hover { border-color: var(--border-h); }
+        .skill-cat {
+            font-family: var(--mono);
+            font-size: .7rem;
+            color: var(--cyan);
+            letter-spacing: .1em;
+            margin-bottom: .9rem;
+            padding-bottom: .75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .skill-pills { display: flex; flex-wrap: wrap; gap: .45rem; }
+        .skill-pill {
+            padding: 4px 11px;
+            background: rgba(139,92,246,.07);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: var(--dim);
+            transition: all .18s;
+        }
+        .skill-pill:hover {
+            color: var(--text);
+            border-color: var(--purple);
+            background: rgba(139,92,246,.14);
+        }
+
+        /* ── JOURNEY ── */
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1.1rem;
+        }
+        .j-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 1.4rem;
+            position: relative;
+            overflow: hidden;
+            transition: all .28s;
+        }
+        .j-card:hover {
+            border-color: var(--border-h);
+            transform: translateY(-3px);
+        }
+        .j-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity .28s;
+        }
+        .j-card:hover::after { opacity: 1; }
+        .j-step {
+            font-family: var(--mono);
+            font-size: .68rem;
+            color: var(--purple);
+            letter-spacing: .1em;
+            margin-bottom: .35rem;
+        }
+        .j-cat {
+            font-family: var(--mono);
+            font-size: .68rem;
+            color: var(--muted);
+            letter-spacing: .08em;
+            margin-bottom: .35rem;
+        }
+        .j-title {
+            font-size: .98rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: .6rem;
+        }
+        .j-desc { font-size: .83rem; color: var(--dim); line-height: 1.65; }
+
+        /* ── CONTACT ── */
+        #contact .section-wrap { padding-bottom: 60px; }
+        .contact-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-box::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: var(--gradient);
+            border-radius: var(--r);
+            z-index: -1;
+            opacity: .22;
+        }
+        .contact-h {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: .65rem;
+        }
+        .contact-p {
+            color: var(--dim);
+            font-size: .92rem;
+            max-width: 440px;
+            margin: 0 auto 2rem;
+            line-height: 1.75;
+        }
+        .contact-btns { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 1.75rem 6%;
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: var(--muted);
+        }
+
+        /* ── FADE-UP ANIMATION ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .reveal.in { opacity: 1; transform: none; }
+
+        /* ── MOBILE ── */
+        @media (max-width: 760px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .photo-ring {
+                width: 180px;
+                height: 180px;
+                margin: 0 auto;
+                order: -1;
+            }
+            .hero-desc { margin-left: auto; margin-right: auto; }
+            .hero-cta { justify-content: center; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: var(--nav-h);
+                left: 0; right: 0;
+                background: rgba(4,4,16,.97);
+                padding: 2rem 6%;
+                gap: 1.75rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .burger { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─────────────────────── NAV ─────────────────────── -->
+<nav>
+    <div class="logo" id="nav-logo">PORTFOLIO</div>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="burger" id="burger">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<!-- ─────────────────────── HERO ─────────────────────── -->
+<div id="home">
+    <div class="hero-inner">
+        <div>
+            <div class="hero-badge">
+                <div class="badge-dot"></div>
+                <span id="hero-badge-text">Open to Opportunities</span>
+            </div>
+            <h1 class="hero-name"><span id="hero-name">Your Name</span></h1>
+            <p class="hero-role" id="hero-role">Your Title Here</p>
+            <p class="hero-desc" id="hero-desc">Your description goes here. Keep it 2–3 sentences.</p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#" class="btn btn-outline" id="resume-btn" style="display:none">Download Resume</a>
+            </div>
+        </div>
+        <div class="photo-ring" id="photo-ring">
+            <div class="photo-ring-inner" id="photo-inner">👤</div>
+        </div>
+    </div>
+</div>
+
+<!-- ─────────────────────── PROJECTS ─────────────────────── -->
+<section id="projects">
+    <div class="section-wrap">
+        <p class="label">Selected Work</p>
+        <h2 class="section-title"><span>Projects</span></h2>
+        <div class="filter-row" id="filter-row"></div>
+        <div class="proj-grid" id="proj-grid"></div>
+    </div>
+</section>
+
+<!-- ─────────────────────── SKILLS ─────────────────────── -->
+<section id="skills">
+    <div class="section-wrap">
+        <p class="label">Technical Expertise</p>
+        <h2 class="section-title">Skills & <span>Technologies</span></h2>
+        <div class="skills-grid" id="skills-grid"></div>
+    </div>
+</section>
+
+<!-- ─────────────────────── JOURNEY ─────────────────────── -->
+<section id="journey">
+    <div class="section-wrap">
+        <p class="label">Professional Background</p>
+        <h2 class="section-title">My <span>Journey</span></h2>
+        <div class="journey-grid" id="journey-grid"></div>
+    </div>
+</section>
+
+<!-- ─────────────────────── CONTACT ─────────────────────── -->
+<section id="contact">
+    <div class="section-wrap">
+        <div class="contact-box">
+            <h2 class="contact-h" id="contact-h">Let's Work Together</h2>
+            <p class="contact-p" id="contact-p">Open to freelance projects and full-time opportunities.</p>
+            <div class="contact-btns" id="contact-btns"></div>
+        </div>
+    </div>
+</section>
+
+<footer id="footer">© 2026 Portfolio.</footer>
+
+<!-- ─────────────────────── MODAL ─────────────────────── -->
+<div class="overlay" id="overlay">
+    <div class="modal-box">
+        <button class="modal-x" id="modal-x">✕</button>
+        <img class="modal-img" id="modal-img" alt="" />
+        <div class="modal-body">
+            <div class="modal-tags" id="modal-tags"></div>
+            <h2 class="modal-title" id="modal-title"></h2>
+            <p class="modal-text" id="modal-text"></p>
+        </div>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ✏️  EDIT YOUR INFO BELOW — everything above is design
+═══════════════════════════════════════════════════════ -->
+<script>
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. PERSONAL INFO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const CONFIG = {
+    name:        "Your Name",
+    badge:       "Open to Opportunities",
+    role:        "AI Automation Developer",
+    subtitle:    "n8n Workflow Developer & AI Agent Builder",
+    description: "I build AI-powered automation workflows using n8n, AI agents, and APIs to automate repetitive tasks and streamline business processes.",
+
+    // Put your resume PDF in the same folder as this file, then write its filename:
+    resume:    "",               // e.g. "resume.pdf"   — leave "" to hide the button
+
+    // Put your photo in the same folder as this file, then write its filename:
+    photo:     "",               // e.g. "photo.jpg"    — leave "" to show emoji
+
+    github:    "https://github.com/yourusername",
+    linkedin:  "https://linkedin.com/in/yourusername",
+    email:     "you@email.com",
+
+    contactTitle: "Let's Work Together",
+    contactSub:   "Open to freelance projects and full-time opportunities.",
+    footer:       "© 2026 Your Name. AI Automation Developer.",
+};
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   2. PROJECTS
+   
+   ➤ image  — filename of the image in your repo folder, OR leave "" for placeholder
+   ➤ category — the filter button label (must match something in the list)
+   ➤ tags   — tech labels shown on the card
+   ➤ short  — one-line preview shown on the card
+   ➤ detail — full description shown when you click the card (use \n for new lines)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const PROJECTS = [
+    {
+        title:    "AI Restaurant Customer Assistant",
+        image:    "",            // e.g. "projects/restaurant.png"
+        category: "AI Automation",
+        tags:     ["n8n", "AI Agent", "Gemini", "Google Sheets"],
+        short:    "AI-powered restaurant assistant that automates customer conversations, order collection, and kitchen notifications.",
+        detail:   `Full description of this project goes here.\n\nExplain what problem it solves, how the workflow is structured, and what tools were used.\n\nYou can write as many paragraphs as you want — each \\n creates a new line.`,
+    },
+    {
+        title:    "Customer Feedback Automation",
+        image:    "",
+        category: "AI Automation",
+        tags:     ["n8n", "Sentiment Analysis", "Gmail", "WhatsApp"],
+        short:    "Analyzes customer feedback with AI and routes automated responses based on sentiment classification.",
+        detail:   `Full description for this project.\n\nDescribe the architecture, the sentiment categories, and how actions are triggered.`,
+    },
+    {
+        title:    "Chest X-Ray Pneumonia Detection",
+        image:    "",
+        category: "AI / ML",
+        tags:     ["Python", "TensorFlow", "CNN", "FastAPI"],
+        short:    "Deep learning model that classifies chest X-ray images to detect pneumonia patterns using a CNN architecture.",
+        detail:   `Full description for this ML project.\n\nExplain the dataset, model architecture, accuracy, and how it was deployed.`,
+    },
+    // ── Add more projects: copy the block above and paste it here ──
+];
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   3. SKILLS
+   Each key = category name. Value = array of skill labels.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const SKILLS = {
+    "AI Automation": [
+        "n8n Workflow Automation",
+        "AI / LLM Integration",
+        "Prompt Engineering",
+        "API Integration",
+        "Webhooks",
+        "JSON",
+    ],
+    "AI / ML": [
+        "Python",
+        "Machine Learning",
+        "Deep Learning",
+        "TensorFlow",
+        "Keras",
+        "CNN",
+    ],
+    "Development": [
+        "FastAPI",
+        "Streamlit",
+        "REST APIs",
+        "Git / GitHub",
+        "Docker",
+    ],
+    // ── Add more categories: copy the block above and paste here ──
+};
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   4. JOURNEY — your career / education timeline
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const JOURNEY = [
+    {
+        step:  "01",
+        cat:   "Network Security",
+        title: "Technical Foundation",
+        desc:  "Started with Network Security, building a solid foundation in networking protocols and security concepts.",
+    },
+    {
+        step:  "02",
+        cat:   "Artificial Intelligence",
+        title: "Exploring AI & ML",
+        desc:  "Became interested in AI and Machine Learning, exploring data processing and neural networks.",
+    },
+    {
+        step:  "03",
+        cat:   "Practical Application",
+        title: "Deep Learning Projects",
+        desc:  "Built practical AI models including a CNN-based Chest X-Ray Pneumonia Detection application.",
+    },
+    {
+        step:  "04",
+        cat:   "Current Focus",
+        title: "n8n Workflow Development",
+        desc:  "My main focus now: building AI-powered workflows that connect applications, APIs, and AI models to automate real business processes.",
+    },
+    // ── Add more steps: copy the block above and paste here ──
+];
+
+
+/* ══════════════════════════════════════════════════════
+   🔧 ENGINE — no need to edit below this line
+══════════════════════════════════════════════════════ */
+
+// Apply CONFIG to DOM
+document.title = `${CONFIG.name} | ${CONFIG.role}`;
+document.getElementById("nav-logo").textContent = CONFIG.name.split(" ")[0].toUpperCase() + (CONFIG.name.split(" ")[1] ? " " + CONFIG.name.split(" ")[1].toUpperCase() : "");
+document.getElementById("hero-badge-text").textContent = CONFIG.badge;
+document.getElementById("hero-name").textContent = CONFIG.name;
+document.getElementById("hero-role").textContent = CONFIG.subtitle;
+document.getElementById("hero-desc").textContent = CONFIG.description;
+document.getElementById("footer").textContent = CONFIG.footer;
+document.getElementById("contact-h").textContent = CONFIG.contactTitle;
+document.getElementById("contact-p").textContent = CONFIG.contactSub;
+
+// Resume button
+if (CONFIG.resume) {
+    const rb = document.getElementById("resume-btn");
+    rb.href = CONFIG.resume;
+    rb.download = "";
+    rb.style.display = "inline-flex";
+}
+
+// Photo
+if (CONFIG.photo) {
+    document.getElementById("photo-inner").innerHTML =
+        `<img src="${CONFIG.photo}" alt="${CONFIG.name}">`;
+}
+
+// Contact buttons
+const cbWrap = document.getElementById("contact-btns");
+[
+    { label: "✉ Email Me",  href: `mailto:${CONFIG.email}` },
+    { label: "in LinkedIn", href: CONFIG.linkedin },
+    { label: "⌥ GitHub",   href: CONFIG.github },
+].forEach(({ label, href }) => {
+    if (!href || href.endsWith("undefined")) return;
+    const a = document.createElement("a");
+    a.href = href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.className = "btn btn-outline";
+    a.textContent = label;
+    cbWrap.appendChild(a);
+});
+
+// ── Build projects ──
+const categories = ["All", ...[...new Set(PROJECTS.map(p => p.category))]];
+const filterRow  = document.getElementById("filter-row");
+const projGrid   = document.getElementById("proj-grid");
+let active = "All";
+
+categories.forEach(cat => {
+    const b = document.createElement("button");
+    b.className = "f-btn" + (cat === "All" ? " on" : "");
+    b.textContent = cat;
+    b.onclick = () => {
+        active = cat;
+        filterRow.querySelectorAll(".f-btn").forEach(x => x.classList.remove("on"));
+        b.classList.add("on");
+        projGrid.querySelectorAll(".proj-card").forEach(c => {
+            c.classList.toggle("hidden", active !== "All" && c.dataset.cat !== active);
+        });
+    };
+    filterRow.appendChild(b);
+});
+
+PROJECTS.forEach((p, i) => {
+    const card = document.createElement("div");
+    card.className = "proj-card reveal";
+    card.dataset.cat = p.category;
+
+    card.innerHTML = `
+        ${p.image
+            ? `<img class="proj-img" src="${p.image}" alt="${p.title}" loading="lazy"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+            : ""}
+        <div class="proj-img-ph" ${p.image ? 'style="display:none"' : ""}>🔧</div>
+        <div class="proj-body">
+            <div class="proj-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+            <div class="proj-title">${p.title}</div>
+            <p class="proj-short">${p.short}</p>
+        </div>
+        <div class="proj-foot"><span>View Details</span><small>${p.category}</small></div>
+    `;
+    card.onclick = () => openModal(i);
+    projGrid.appendChild(card);
+});
+
+// ── Build skills ──
+const skillsGrid = document.getElementById("skills-grid");
+Object.entries(SKILLS).forEach(([cat, items]) => {
+    const div = document.createElement("div");
+    div.className = "skill-card reveal";
+    div.innerHTML = `
+        <div class="skill-cat">${cat}</div>
+        <div class="skill-pills">${items.map(s => `<span class="skill-pill">${s}</span>`).join("")}</div>
+    `;
+    skillsGrid.appendChild(div);
+});
+
+// ── Build journey ──
+const journeyGrid = document.getElementById("journey-grid");
+JOURNEY.forEach(j => {
+    const div = document.createElement("div");
+    div.className = "j-card reveal";
+    div.innerHTML = `
+        <div class="j-step">${j.step} —</div>
+        <div class="j-cat">${j.cat}</div>
+        <div class="j-title">${j.title}</div>
+        <p class="j-desc">${j.desc}</p>
+    `;
+    journeyGrid.appendChild(div);
+});
+
+// ── Modal ──
+const overlay = document.getElementById("overlay");
+function openModal(i) {
+    const p = PROJECTS[i];
+    const img = document.getElementById("modal-img");
+    if (p.image) { img.src = p.image; img.classList.add("show"); }
+    else { img.classList.remove("show"); }
+    document.getElementById("modal-tags").innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join("");
+    document.getElementById("modal-title").textContent = p.title;
+    document.getElementById("modal-text").textContent = p.detail;
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+}
+function closeModal() {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+}
+overlay.onclick = e => { if (e.target === overlay) closeModal(); };
+document.getElementById("modal-x").onclick = closeModal;
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+// ── Scroll reveal ──
+const io = new IntersectionObserver(entries =>
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); }),
+    { threshold: 0.08 }
+);
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+// ── Active nav on scroll ──
+const sects = ["home","projects","skills","journey","contact"];
+window.addEventListener("scroll", () => {
+    let cur = "";
+    sects.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 120) cur = id;
+    });
+    document.querySelectorAll(".nav-links a").forEach(a =>
+        a.classList.toggle("active", a.getAttribute("href") === `#${cur}`)
+    );
+}, { passive: true });
+
+// ── Hamburger ──
+document.getElementById("burger").onclick = () =>
+    document.getElementById("nav-links").classList.toggle("open");
+
+</script>
+</body>
+</html>
