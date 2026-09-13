@@ -3,285 +3,786 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+
+    <title>Mazen Elmahy | AI Automation Specialist</title>
+
+    <meta name="description"
+          content="Mazen Elmahy - AI Automation Specialist building practical business automations with n8n, APIs and AI.">
+
     <style>
-        :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-main: #c9d1d9;
-            --text-muted: #8b949e;
-            --accent: #58a6ff;
-            --nav-bg: rgba(13, 17, 23, 0.9);
-        }
+        /* =========================
+           GLOBAL
+        ========================= */
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
+            box-sizing: border-box;
         }
 
         html {
             scroll-behavior: smooth;
         }
 
-        /* Navigation */
-        nav {
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: #0a0a0a;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--nav-bg);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
             z-index: 1000;
-            border-bottom: 1px solid #30363d;
+
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid #1f1f1f;
         }
 
-        nav a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
+        nav {
+            height: 70px;
 
-        nav a:hover {
-            color: var(--accent);
-        }
-
-        /* Sections General */
-        section {
-            min-height: 100vh;
-            padding: 6rem 2rem 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--text-main);
-            border-bottom: 2px solid #30363d;
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-
-        /* About Section */
-        #about .content {
             display: flex;
             align-items: center;
-            gap: 3rem;
+            justify-content: space-between;
         }
 
-        .pfp {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #30363d;
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
-        .description {
-            flex: 1;
+        .logo span {
+            color: #7c5cff;
         }
 
-        .description p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            color: var(--text-muted);
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            font-size: 0.95rem;
+            transition: 0.25s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+
+        /* =========================
+           HERO / ABOUT
+        ========================= */
+
+        #about {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            padding-top: 100px;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(124, 92, 255, 0.13),
+                    transparent 35%
+                );
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 80px;
+
+            align-items: center;
+        }
+
+        .about-text small {
+            color: #7c5cff;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        .about-text h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 1;
+            margin: 15px 0 20px;
+            letter-spacing: -3px;
+        }
+
+        .about-text h1 span {
+            color: #7c5cff;
+        }
+
+        .about-text h2 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+
+        .about-text p {
+            max-width: 650px;
+            color: #999;
+            font-size: 1.05rem;
+        }
+
+        .about-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            display: inline-block;
-            background-color: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s;
+            padding: 12px 20px;
+            border-radius: 8px;
+
+            border: 1px solid #2c2c2c;
+
+            background: #111;
+            color: white;
+
+            font-size: 0.9rem;
+            transition: 0.25s;
         }
 
         .btn:hover {
-            background-color: var(--accent);
-            color: var(--bg-color);
+            border-color: #7c5cff;
+            transform: translateY(-2px);
         }
 
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        .btn-primary {
+            background: #7c5cff;
+            border-color: #7c5cff;
+            color: white;
         }
 
-        .project-card {
-            background-color: var(--card-bg);
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.2s;
+        .btn-primary:hover {
+            background: #6b4df0;
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
+        .profile-wrapper {
+            display: flex;
+            justify-content: center;
         }
 
-        .project-img {
-            width: 100%;
-            height: 200px;
+        .profile {
+            width: 250px;
+            height: 250px;
+
             object-fit: cover;
-            background-color: #21262d; /* Placeholder bg */
+
+            border-radius: 50%;
+
+            border: 2px solid #2a2a2a;
+
+            box-shadow:
+                0 0 0 8px #101010,
+                0 0 50px rgba(124, 92, 255, 0.2);
         }
 
-        .project-info {
-            padding: 1.5rem;
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        section {
+            padding: 120px 0;
         }
 
-        .project-info h3 {
-            margin-bottom: 0.5rem;
+        .section-title {
+            margin-bottom: 60px;
         }
 
-        .project-info p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
+        .section-title small {
+            color: #7c5cff;
+            font-family: monospace;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-top: 8px;
+        }
+
+        .section-title p {
+            color: #888;
+            margin-top: 10px;
+        }
+
+
+        /* =========================
+           PROJECTS
+        ========================= */
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .project {
+            background: #101010;
+
+            border: 1px solid #202020;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            transition: 0.3s;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            border-color: #343434;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+
+            object-fit: cover;
+
+            background: #151515;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .project-content p {
+            color: #999;
             font-size: 0.95rem;
+            margin-bottom: 18px;
         }
 
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 8px;
+
+            margin-bottom: 20px;
         }
 
-        .tech-tag {
-            background-color: rgba(88, 166, 255, 0.1);
-            color: var(--accent);
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
+        .tech {
+            padding: 5px 9px;
+
+            background: #181818;
+            border: 1px solid #292929;
+
+            border-radius: 5px;
+
+            color: #bbb;
+
+            font-size: 0.78rem;
+            font-family: monospace;
         }
 
-        /* Contact Section */
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-links a {
+            color: #7c5cff;
+            font-size: 0.9rem;
+        }
+
+        .project-links a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           CONTACT
+        ========================= */
+
         #contact {
+            border-top: 1px solid #1d1d1d;
             text-align: center;
-            align-items: center;
+        }
+
+        .contact-box {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .contact-box h2 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 20px;
+        }
+
+        .contact-box h2 span {
+            color: #7c5cff;
+        }
+
+        .contact-box p {
+            color: #999;
+            margin-bottom: 35px;
         }
 
         .social-links {
             display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
-        .social-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 1.2rem;
-            border: 1px solid #30363d;
-            padding: 1rem 2rem;
+        .social {
+            padding: 12px 20px;
+
+            border: 1px solid #292929;
             border-radius: 8px;
-            transition: all 0.2s;
-            background-color: var(--card-bg);
+
+            background: #101010;
+
+            transition: 0.25s;
         }
 
-        .social-links a:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+        .social:hover {
+            border-color: #7c5cff;
+            transform: translateY(-2px);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            #about .content {
-                flex-direction: column;
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 30px 0;
+
+            border-top: 1px solid #1d1d1d;
+
+            text-align: center;
+
+            color: #555;
+
+            font-size: 0.85rem;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                gap: 14px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
                 text-align: center;
             }
+
+            .about-text p {
+                margin: auto;
+            }
+
+            .about-buttons {
+                justify-content: center;
+            }
+
+            .profile-wrapper {
+                order: -1;
+            }
+
+            .profile {
+                width: 190px;
+                height: 190px;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+
             nav {
-                padding: 1rem;
-                gap: 1rem;
+                height: 60px;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 0.72rem;
+            }
+
+            section {
+                padding: 90px 0;
+            }
+
+            .about-text h1 {
+                font-size: 3rem;
             }
         }
     </style>
 </head>
+
+
 <body>
 
-    <nav>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Let's Work Together</a>
-    </nav>
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
 
-    <section id="about">
-        <h2>About Me</h2>
-        <div class="content">
-            <!-- Replace src with your actual profile picture -->
-            <img src="https://via.placeholder.com/250" alt="Profile Picture" class="pfp">
-            <div class="description">
-                <p>I am a Business Information Systems student focusing on data analysis, system architecture, and product analytics. I specialize in mapping out complex business requirements and translating them into structured, pragmatic technical solutions.</p>
-                <!-- Replace href with the path to your actual PDF resume -->
-                <a href="resume.pdf" class="btn" download>Download Resume</a>
-            </div>
+    <header>
+        <div class="container">
+
+            <nav>
+
+                <a href="#about" class="logo">
+                    MAZEN<span>.</span>
+                </a>
+
+                <ul class="nav-links">
+
+                    <li>
+                        <a href="#about">About</a>
+                    </li>
+
+                    <li>
+                        <a href="#projects">Projects</a>
+                    </li>
+
+                    <li>
+                        <a href="#contact">Contact</a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
         </div>
-    </section>
+    </header>
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="projects-grid">
-            
-            <!-- Project 1 -->
-            <div class="project-card">
-                <!-- Replace src with your project image -->
-                <img src="https://via.placeholder.com/400x200" alt="Project 1" class="project-img">
-                <div class="project-info">
-                    <h3>Tanta Mall System Design</h3>
-                    <p>A comprehensive conceptual website and application specification for a physical commercial venue. Included manual architectural sketches and core user experience workflows.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">System Design</span>
-                        <span class="tech-tag">UX/UI</span>
-                        <span class="tech-tag">Requirements Analysis</span>
+
+    <!-- =========================
+         ABOUT
+    ========================== -->
+
+    <main>
+
+        <section id="about">
+
+            <div class="container">
+
+                <div class="about-content">
+
+                    <div class="about-text">
+
+                        <small>HELLO, WORLD.</small>
+
+                        <h1>
+                            I'm Mazen<span>.</span>
+                        </h1>
+
+                        <h2>
+                            AI Automation Specialist
+                        </h2>
+
+                        <p>
+                            I help businesses get rid of repetitive, time-consuming tasks by building
+                            AI-powered automations, through tools like n8n.
+                        </p>
+
+                        <div class="about-buttons">
+
+                            <a
+                                href="resume.pdf"
+                                class="btn btn-primary"
+                                download
+                            >
+                                Download Resume
+                            </a>
+
+                            <a
+                                href="#projects"
+                                class="btn"
+                            >
+                                View My Work
+                            </a>
+
+                        </div>
+
                     </div>
-                </div>
-            </div>
 
-            <!-- Project 2 -->
-            <div class="project-card">
-                <!-- Replace src with your project image -->
-                <img src="https://via.placeholder.com/400x200" alt="Project 2" class="project-img">
-                <div class="project-info">
-                    <h3>Data Analytics Pipeline</h3>
-                    <p>Designed structured datasets to evaluate macro-metrics and optimize decision-making models within simulated business environments.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Data Analysis</span>
-                        <span class="tech-tag">SQL</span>
-                        <span class="tech-tag">Python</span>
+
+                    <div class="profile-wrapper">
+
+                        <!--
+                            Replace profile.jpg
+                            with your actual image.
+                        -->
+
+                        <img
+                            src="images/profile.jpg"
+                            alt="Mazen Elmahy"
+                            class="profile"
+                        >
+
                     </div>
+
                 </div>
+
             </div>
 
-        </div>
-    </section>
+        </section>
 
-    <section id="contact">
-        <h2>Let's Work Together</h2>
-        <p style="color: var(--text-muted); margin-top: 1rem;">I'm open to discussing opportunities in systems analysis, data analytics, and SAP consulting.</p>
-        <div class="social-links">
-            <!-- Insert your actual profile links -->
-            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+
+        <!-- =========================
+             PROJECTS
+        ========================== -->
+
+        <section id="projects">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <small>02 / PROJECTS</small>
+
+                    <h2>Things I've Built.</h2>
+
+                    <p>
+                        Projects I've worked on.
+                    </p>
+
+                </div>
+
+
+                <div class="projects">
+
+
+                    <!-- PROJECT 1 -->
+
+                    <article class="project">
+
+                        <!-- Replace this image -->
+                        <img
+                            src="images/project-1.jpg"
+                            alt="AI Automation Project"
+                            class="project-image"
+                        >
+
+                        <div class="project-content">
+
+                            <h3>
+                                Sales Data Pipeline
+                            </h3>
+
+                            <p>
+                                Designed and deployed an event-driven proof-of-concept pipeline that ingests raw data payloads,
+                                normalizes the schema, and routes the information based on conditional business logic.
+                            </p>
+
+                            <div class="tech-stack">
+
+                                <span class="tech">
+                                    n8n
+                                </span>
+
+                                <span class="tech">
+                                    HTTP requests
+                                </span>
+
+                                <span class="tech">
+                                    Webhooks
+                                </span>
+
+                                <span class="tech">
+                                    AI
+                                </span>
+
+                            </div>
+
+
+                    <!-- PROJECT 2 -->
+
+                    <article class="project">
+
+                        <img
+                            src="images/project-2.jpg"
+                            alt="Automation Project"
+                            class="project-image"
+                        >
+
+                        <div class="project-content">
+
+                            <h3>
+                                Resilient API Integration & Webhook System
+                            </h3>
+
+                            <p>
+                                Engineered a scalable integration layer that captures real-time external events
+                                via webhooks and communicates securely with third-party APIs.
+                            </p>
+
+                            <div class="tech-stack">
+
+                                <span class="tech">
+                                    n8n
+                                </span>
+
+                                <span class="tech">
+                                    Webhooks
+                                </span>
+
+                                <span class="tech">
+                                    REST API
+                                </span>
+
+                                <span class="tech">
+                                    HTTP requests
+                                </span>
+
+                            </div>
+
+
+                    </article>
+                        
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONTACT
+        ========================== -->
+
+        <section id="contact">
+
+            <div class="container">
+
+                <div class="contact-box">
+
+                    <div class="section-title">
+
+                        <small>03 / CONTACT</small>
+
+                    </div>
+
+                    <h2>
+                        Let's <span>work together.</span>
+                    </h2>
+
+                    <p>
+                        Have a business process that could be automated?
+                        Let's talk.
+                    </p>
+
+
+                    <div class="social-links">
+
+                        <!-- Replace these links -->
+
+                        <a
+                            href="https://github.com/mazen-elmahy"
+                            target="_blank"
+                            class="social"
+                        >
+                            GitHub
+                        </a>
+
+
+                        <a
+                            href="https://www.linkedin.com/in/mazen-elmahy/"
+                            target="_blank"
+                            class="social"
+                        >
+                            LinkedIn
+                        </a>
+
+
+                        <a
+                            href="mailto:mazen.amr.elmahy@gmail.com"
+                            class="social"
+                        >
+                            Email
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="container">
+
+            © 2026 Mazen Elmahy.
+
         </div>
-    </section>
+
+    </footer>
 
 </body>
 </html>
