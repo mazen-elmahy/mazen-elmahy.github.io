@@ -251,21 +251,23 @@
            PROJECTS
         ========================= */
 
+        #projects {
+            border-top: 1px solid #1d1d1d;
+        }
+
         .projects {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 25px;
+            align-items: start;
         }
 
         .project {
+            min-width: 0;
             background: #101010;
-
             border: 1px solid #202020;
-
             border-radius: 12px;
-
             overflow: hidden;
-
             transition: 0.3s;
         }
 
@@ -320,18 +322,85 @@
             font-family: monospace;
         }
 
-        .project-links {
-            display: flex;
+        /* =========================
+           SKILLS
+        ========================= */
+
+        #skills {
+            border-top: 1px solid #1d1d1d;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
         }
 
-        .project-links a {
-            color: #7c5cff;
-            font-size: 0.9rem;
+        .skill-card {
+            background: #101010;
+            border: 1px solid #202020;
+            border-radius: 10px;
+            padding: 20px;
+            transition: 0.3s;
         }
 
-        .project-links a:hover {
-            text-decoration: underline;
+        .skill-card:hover {
+            transform: translateY(-4px);
+            border-color: #343434;
+        }
+
+        .skill-card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .skill-card p {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+
+        /* =========================
+           SERVICES
+        ========================= */
+
+        #services {
+            border-top: 1px solid #1d1d1d;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background: #101010;
+            border: 1px solid #202020;
+            border-radius: 12px;
+            padding: 28px;
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: #343434;
+        }
+
+        .service-number {
+            color: #7c5cff;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+
+        .service-card h3 {
+            margin: 10px 0;
+            font-size: 1.15rem;
+        }
+
+        .service-card p {
+            color: #999;
+            font-size: 0.92rem;
         }
 
 
@@ -440,10 +509,28 @@
                 height: 190px;
             }
 
-            .projects {
+            .projects,
+            .skills-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text h1 {
+                letter-spacing: -2px;
+            }
+        }
+
+        @media (max-width: 950px) {
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid {
                 grid-template-columns: 1fr;
             }
         }
+
 
         @media (max-width: 500px) {
 
@@ -497,6 +584,14 @@
                     </li>
 
                     <li>
+                        <a href="#skills">Skills</a>
+                    </li>
+
+                    <li>
+                        <a href="#services">Services</a>
+                    </li>
+
+                    <li>
                         <a href="#projects">Projects</a>
                     </li>
 
@@ -529,7 +624,7 @@
                         <small>HELLO, WORLD.</small>
 
                         <h1>
-                            I'm Mazen<span>.</span>
+                            I'm Mazen Elmahy<span>.</span>
                         </h1>
 
                         <h2>
@@ -586,6 +681,90 @@
 
 
         <!-- =========================
+             SKILLS
+        ========================== -->
+
+        <section id="skills">
+
+            <div class="container">
+
+                <div class="section-title">
+                    <small>02 / SKILLS</small>
+                    <h2>What I Work With.</h2>
+                    <p>Tools and technologies I use to build practical automations.</p>
+                </div>
+
+                <div class="skills-grid">
+
+                    <div class="skill-card">
+                        <h3>n8n</h3>
+                        <p>Workflow automation, branching logic, integrations, and reliable business processes.</p>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3>APIs & Webhooks</h3>
+                        <p>REST APIs, HTTP requests, webhooks, authentication, and third-party integrations.</p>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3>Python</h3>
+                        <p>Automation scripts, data processing, transformations, and workflow support.</p>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3>AI & LLMs</h3>
+                        <p>AI-powered workflows, prompt design, structured outputs, and business automation.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SERVICES
+        ========================== -->
+
+        <section id="services">
+
+            <div class="container">
+
+                <div class="section-title">
+                    <small>03 / SERVICES</small>
+                    <h2>How I Can Help.</h2>
+                    <p>Automation services focused on saving time, reducing manual work, and improving efficiency.</p>
+                </div>
+
+                <div class="services-grid">
+
+                    <div class="service-card">
+                        <span class="service-number">01</span>
+                        <h3>Business Process Automation</h3>
+                        <p>Turn repetitive manual processes into automated workflows that run consistently with minimal human intervention.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <span class="service-number">02</span>
+                        <h3>API & System Integration</h3>
+                        <p>Connect the tools your business already uses so data can move automatically between platforms and services.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <span class="service-number">03</span>
+                        <h3>AI-Powered Automation</h3>
+                        <p>Add AI to existing workflows for tasks like data extraction, classification, summarization, and intelligent routing.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
              PROJECTS
         ========================== -->
 
@@ -595,7 +774,7 @@
 
                 <div class="section-title">
 
-                    <small>02 / PROJECTS</small>
+                    <small>04 / PROJECTS</small>
 
                     <h2>Things I've Built.</h2>
 
@@ -650,6 +829,10 @@
                                 </span>
 
                             </div>
+
+                        </div>
+
+                    </article>
 
 
                     <!-- PROJECT 2 -->
@@ -716,7 +899,7 @@
 
                     <div class="section-title">
 
-                        <small>03 / CONTACT</small>
+                        <small>05 / CONTACT</small>
 
                     </div>
 
